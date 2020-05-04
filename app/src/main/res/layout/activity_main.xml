@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/background"
+    android:layout_height="match_parent"
+    tools:context=".Login">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="10dp"
+        android:layout_centerVertical="true"
+        android:layout_height="400dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_margin="5dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login"
+                android:layout_marginTop="20dp"
+                android:id="@+id/demoText"
+                android:textSize="24dp"
+                android:layout_centerHorizontal="true"
+                android:textStyle="bold"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:background="@drawable/custom_text_view"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:layout_below="@id/demoText"
+                android:text="Email"
+                android:id="@+id/loginEmail"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_below="@id/demoText"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_account_circle_black_24dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:background="@drawable/custom_text_view"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:layout_below="@id/loginEmail"
+                android:text="Password"
+                android:id="@+id/loginPassword"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_below="@id/demoText"
+                android:layout_marginTop="80dp"
+                android:layout_marginLeft="30dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_account_circle_black_24dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Forget Password"
+                android:textSize="14dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:layout_below="@id/loginPassword"
+                android:layout_marginTop="10dp"
+                android:id="@+id/forgetPassword"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login"
+                android:layout_below="@id/loginPassword"
+                android:layout_marginTop="40dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/loginButton"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@id/goToSignUp"
+                android:layout_below="@id/loginButton"
+                android:text="Don't have an account?"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Sign Up"
+                android:layout_toRightOf="@id/loginButton"
+                android:layout_marginLeft="0dp"
+                android:layout_below="@id/loginButton"
+                android:layout_height="wrap_content"
+                android:id="@+id/goToSignUp"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign in with Google"
+                android:layout_below="@id/goToSignUp"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+</RelativeLayout>
