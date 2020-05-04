@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_account_circle_black_24dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:id="@+id/friendUserImage"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textSize="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@id/friendUserImage"
+        android:text="Abhinav Singh"
+        android:id="@+id/friendUserName"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_below="@id/friendUserName"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textSize="16dp"
+        android:layout_height="wrap_content"
+        android:text="JSS Academy of technical Education Noida"
+        android:id="@+id/friendUserCollege"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textSize="16dp"
+        android:layout_below="@id/friendUserCollege"
+        android:text="If debugging is the process of removing software bugs, then programming must be the process of putting them in."
+        android:id="@+id/friendUserBio"/>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        app:cardCornerRadius="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/friendEnrolledCard"
+        app:cardBackgroundColor="#03A9F4"
+        android:layout_below="@id/friendUserBio"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="10dp"
+        android:layout_height="60dp">
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="20dp"
+            android:layout_height="wrap_content"
+            android:text="Course Enrolled: 20"/>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        app:cardCornerRadius="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/friendCompletedCard"
+        app:cardBackgroundColor="#FF5722"
+        android:layout_below="@id/friendEnrolledCard"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_height="60dp">
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="20dp"
+            android:layout_height="wrap_content"
+            android:text="Course Completed: 15"/>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        app:cardCornerRadius="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/friendCertificates"
+        app:cardBackgroundColor="#8BC34A"
+        android:layout_below="@id/friendCompletedCard"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_height="60dp">
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="20dp"
+            android:layout_height="wrap_content"
+            android:text="View Certificates"/>
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>

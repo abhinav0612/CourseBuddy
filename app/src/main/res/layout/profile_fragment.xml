@@ -1,5 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
-
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<ImageView
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:layout_marginTop="50dp"
+    android:id="@+id/profilePicture"
+    android:layout_centerHorizontal="true"/>
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        app:cardCornerRadius="10dp"
+        android:layout_marginLeft="30dp"
+        android:id="@+id/enrolledCard"
+        app:cardBackgroundColor="#03A9F4"
+        android:layout_below="@id/profilePicture"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_height="40dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content"
+            android:text="Course Enrolled: 20"/>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        app:cardCornerRadius="10dp"
+        app:cardBackgroundColor="#4CAF50"
+        android:layout_marginRight="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/completedCard"
+        android:layout_below="@id/profilePicture"
+        android:layout_height="40dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content"
+            android:text="Course Completed: 20"/>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:layout_width="200dp"
+        app:cardBackgroundColor="#AF81B6"
+        app:cardCornerRadius="10dp"
+        android:id="@+id/certificatedCard"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/enrolledCard"
+        android:layout_margin="10dp"
+        android:layout_height="40dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content"
+            android:text="View Certificates"/>
+    </androidx.cardview.widget.CardView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/custom_text_view"
+        android:layout_below="@id/certificatedCard"
+        android:id="@+id/userName"
+        android:gravity="left"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:text="Abhinav Singh"
+        android:layout_margin="20dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/custom_text_view"
+        android:id="@+id/userEmail"
+        android:text="abcd@gmail.com"
+        android:layout_below="@id/userName"
+        android:layout_margin="20dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="989464XXXX"
+        android:background="@drawable/custom_text_view"
+        android:layout_below="@id/userEmail"
+        android:id="@+id/userPhone"
+        android:layout_margin="20dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"/>
 </RelativeLayout>

@@ -1,6 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="50dp"
+        android:id="@+id/profilePicture"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update photo"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:textSize="16dp"
+        android:layout_below="@id/profilePicture"
+        android:id="@+id/updatePicture"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/custom_text_view"
+        android:layout_below="@id/updatePicture"
+        android:id="@+id/et_userName"
+        android:gravity="left"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:text="Abhinav Singh"
+        android:layout_margin="20dp"
+        android:paddingBottom="10dp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/custom_text_view"
+        android:id="@+id/et_userEmail"
+        android:text="abcd@gmail.com"
+        android:layout_below="@id/et_userName"
+        android:layout_margin="20dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="989464XXXX"
+        android:background="@drawable/custom_text_view"
+        android:layout_below="@id/et_userEmail"
+        android:id="@+id/et_userPhone"
+        android:layout_margin="20dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="Old Password"
+        android:background="@drawable/custom_text_view"
+        android:layout_below="@id/et_userPhone"
+        android:id="@+id/oldPassword"
+        android:layout_margin="20dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="New Password"
+        android:background="@drawable/custom_text_view"
+        android:layout_below="@id/oldPassword"
+        android:id="@+id/newPassword"
+        android:layout_margin="20dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:layout_below="@id/newPassword"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/updateProfileButton"/>
+</RelativeLayout>
