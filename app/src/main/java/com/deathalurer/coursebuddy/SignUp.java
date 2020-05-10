@@ -3,6 +3,7 @@ package com.deathalurer.coursebuddy;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +24,10 @@ public class SignUp extends AppCompatActivity {
     private TextView signIn;
     private EditText userName,userEmail,userPassword,userPhone;
     private FirebaseAuth mAuth;
+    public static final String USER_NAME  = "UserName";
+    public static final String USER_EMAIL  = "UserEmail";
+    public static final String USER_PHONE  = "UserPhone";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +46,8 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 final String name = userName.getText().toString().trim();
-                String email = userEmail.getText().toString().trim();
-                String phone = userPhone.getText().toString().trim();
+                final String email = userEmail.getText().toString().trim();
+                final String phone = userPhone.getText().toString().trim();
                 String password = userPassword.getText().toString().trim();
                 if(name.isEmpty() || email.isEmpty() || password.isEmpty())
                     Toast.makeText(getBaseContext(),"Please fill all details!",Toast.LENGTH_SHORT).show();
@@ -53,6 +58,14 @@ public class SignUp extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(getBaseContext(), "Registration Successful",
                                     Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getBaseContext(),HomeActivity.class);
+                            if(!phone.isEmpty())
+                                intent.putExtra(USER_PHONE,phone);
+                            else
+                                intent.putExtra(USER_PHONE,"");
+                            intent.putExtra(USER_NAME,name);
+                            intent.putExtra(USER_EMAIL,email);
+                            startActivity(intent);
                         }
                         else{
                             Toast.makeText(getBaseContext(), "Authentication failed.",

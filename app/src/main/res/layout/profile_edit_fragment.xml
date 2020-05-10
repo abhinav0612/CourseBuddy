@@ -28,7 +28,6 @@
         android:gravity="left"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
-        android:text="Abhinav Singh"
         android:layout_margin="20dp"
         android:paddingBottom="10dp"/>
     <EditText
@@ -36,7 +35,6 @@
         android:layout_height="40dp"
         android:background="@drawable/custom_text_view"
         android:id="@+id/et_userEmail"
-        android:text="abcd@gmail.com"
         android:layout_below="@id/et_userName"
         android:layout_margin="20dp"
         android:paddingLeft="20dp"
@@ -45,7 +43,6 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="989464XXXX"
         android:background="@drawable/custom_text_view"
         android:layout_below="@id/et_userEmail"
         android:id="@+id/et_userPhone"

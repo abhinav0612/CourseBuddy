@@ -33,7 +33,7 @@
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
                 android:layout_below="@id/demoText"
-                android:text="Full Name"
+                android:hint="Full Name"
                 android:id="@+id/signUpName"/>
             <ImageView
                 android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
                 android:layout_below="@id/signUpName"
-                android:text="Email"
+                android:hint="Email"
                 android:id="@+id/signUpEmail"/>
             <ImageView
                 android:layout_width="wrap_content"
@@ -67,7 +67,7 @@
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
                 android:layout_below="@id/signUpEmail"
-                android:text="Phone Number"
+                android:hint="Phone Number"
                 android:id="@+id/signupPhone"/>
             <ImageView
                 android:layout_width="wrap_content"
@@ -84,7 +84,7 @@
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
                 android:layout_below="@id/signupPhone"
-                android:text="Password"
+                android:hint="Password"
                 android:id="@+id/signUpPassword"/>
             <ImageView
                 android:layout_width="wrap_content"

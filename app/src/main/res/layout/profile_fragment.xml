@@ -67,14 +67,12 @@
         android:gravity="left"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
-        android:text="Abhinav Singh"
         android:layout_margin="20dp"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@drawable/custom_text_view"
         android:id="@+id/userEmail"
-        android:text="abcd@gmail.com"
         android:layout_below="@id/userName"
         android:layout_margin="20dp"
         android:paddingLeft="20dp"
@@ -82,11 +80,17 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="989464XXXX"
         android:background="@drawable/custom_text_view"
         android:layout_below="@id/userEmail"
         android:id="@+id/userPhone"
         android:layout_margin="20dp"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/userPhone"
+        android:layout_centerHorizontal="true"
+        android:text="Edit Profile"
+        android:id="@+id/editProfile"/>
 </RelativeLayout>
