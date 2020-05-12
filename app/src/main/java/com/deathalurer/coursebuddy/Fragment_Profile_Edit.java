@@ -1,6 +1,7 @@
 package com.deathalurer.coursebuddy;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,15 +18,18 @@ import androidx.fragment.app.Fragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 /**
  * Created by Abhinav Singh on 10,May,2020
  */
 public class Fragment_Profile_Edit extends Fragment {
+    private static final String TAG = "Fragment_Profile_Edit";
     private EditText userName,userEmail,userPhone,userOldPassword,userNewPassword;
     private TextView userImage;
     private Button updateProfile;
@@ -41,48 +45,50 @@ public class Fragment_Profile_Edit extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        userName = view.findViewById(R.id.userName);
-        userEmail = view.findViewById(R.id.userEmail);
-        userPhone = view.findViewById(R.id.userPhone);
+        userName = view.findViewById(R.id.et_userName);
+        userEmail = view.findViewById(R.id.et_userEmail);
+        userPhone = view.findViewById(R.id.et_userPhone);
         userImage = view.findViewById(R.id.updatePicture);
+        userOldPassword = view.findViewById(R.id.oldPassword);
+        userNewPassword = view.findViewById(R.id.newPassword);
         updateProfile = view.findViewById(R.id.updateProfileButton);
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
         user = mAuth.getCurrentUser();
         db.collection("Users")
-                .whereEqualTo("UserUniqueID",user.getUid())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        documentID = task.getResult().getDocuments().get(0).getId();
-                        userName.setText(task.getResult().getDocuments().get(0).get("Username").toString());
-                        userEmail.setText(task.getResult().getDocuments().get(0).get("Email").toString());
-                        userPhone.setText(task.getResult().getDocuments().get(0).get("Phone Number").toString());
+                        for(QueryDocumentSnapshot document : task.getResult()){
+                            //Log.d(TAG, document.getId()+" >> " + document.getString("UserUniqueID"));
+                            if(document.getString("UserUniqueID").equals(user.getUid())){
+                                documentID = document.getId();
+                                userName.setText(document.getString("Username"));
+                                userPhone.setText(document.getString("Phone Number"));
+                                userEmail.setText(document.getString("Email"));
+                            }
+                        }
                     }
                 });
-
-        final String name,email,phone,oldPassword,newPassword;
-        name = userName.getText().toString().trim();
-        email = userEmail.getText().toString().trim();
-        phone = userPhone.getText().toString().trim();
-        oldPassword = userOldPassword.getText().toString().trim();
-        newPassword = userNewPassword.getText().toString().trim();
 
         updateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String name,email,phone,oldPassword,newPassword;
+                name = userName.getText().toString().trim();
+                email = userEmail.getText().toString().trim();
+                phone = userPhone.getText().toString().trim();
+//                oldPassword = userOldPassword.getText().toString().trim();
+//                newPassword = userNewPassword.getText().toString().trim();
                 if(name.isEmpty() || email.isEmpty()){
                     Toast.makeText(getActivity(),"Fields can not be left empty",Toast.LENGTH_SHORT).show();
-                }
-                else if(!newPassword.isEmpty()){
-
                 }
                 else {
                     db.collection("Users").document(documentID)
                             .update(
-                                    "UserName",name,
+                                    "Username",name,
                                     "Email",email,
                                     "Phone Number",phone)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
