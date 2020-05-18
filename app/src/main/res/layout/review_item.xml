@@ -1,23 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="wrap_content">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/reviewerName"
-        android:layout_margin="10dp"
-        android:textStyle="bold"
-        android:textSize="18dp"
-        android:text="Abhinav Singh"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/reviewerReview"
-        android:layout_below="@id/reviewerName"
-        android:layout_margin="10dp"
-        android:textSize="18dp"
-        android:text="This course helps you in  all the aspects needed.It not only cover all the topics it also provise you good mentoring as you go through tht project"/>
+<androidx.cardview.widget.CardView android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="10dp"
+    app:cardBackgroundColor="#3EABDC"
+    app:cardCornerRadius="15dp"
+    android:layout_margin="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:padding="5dp"
+        android:layout_width="match_parent" android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/reviewerName"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="10dp"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:text="Abhinav Singh"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/reviewerReview"
+            android:layout_marginBottom="5dp"
+            android:layout_below="@id/reviewerName"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textSize="18dp"
+            android:text="This course helps you in  all the aspects needed.It not only cover all the topics it also provise you good mentoring as you go through tht project"/>
 
 
 
-</RelativeLayout>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

@@ -46,6 +46,7 @@ public class Login extends AppCompatActivity {
                         if(task.isSuccessful()){
                             Intent intent = new Intent(getBaseContext(),HomeActivity.class);
                             startActivity(intent);
+                            finish();
                         }
                         else{
                             Toast.makeText(getBaseContext(), "Login failed..",

@@ -34,6 +34,7 @@
                 android:layout_margin="10dp"
                 android:layout_below="@id/demoText"
                 android:hint="Email"
+                android:text="abcd@gmail.com"
                 android:id="@+id/loginEmail"/>
             <ImageView
                 android:layout_width="wrap_content"
@@ -48,6 +49,7 @@
                 android:gravity="center"
                 android:background="@drawable/custom_text_view"
                 android:layout_height="40dp"
+                android:text="password"
                 android:layout_margin="10dp"
                 android:layout_below="@id/loginEmail"
                 android:hint="Password"

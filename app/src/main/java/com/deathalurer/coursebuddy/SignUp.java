@@ -66,6 +66,7 @@ public class SignUp extends AppCompatActivity {
                             intent.putExtra(USER_NAME,name);
                             intent.putExtra(USER_EMAIL,email);
                             startActivity(intent);
+                            finish();
                         }
                         else{
                             Toast.makeText(getBaseContext(), "Authentication failed.",

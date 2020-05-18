@@ -2,7 +2,8 @@
 <androidx.cardview.widget.CardView android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:id="@+id/cardViewCertificate"
+    android:id="@+id/courseCardItem"
+    android:layout_margin="10dp"
     app:cardCornerRadius="10dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <RelativeLayout
@@ -13,18 +14,20 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_margin="5dp"
-            android:background="@drawable/ic_launcher_background"
             android:id="@+id/courseIssuerImageCard"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/courseNameCard"
+            android:textStyle="bold"
+            android:textSize="16dp"
             android:layout_toRightOf="@id/courseIssuerImageCard"
             android:layout_marginLeft="20dp"
             android:text="Android Development Basics"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:id="@+id/courseIssuerNameCard"
             android:layout_below="@id/courseNameCard"
             android:layout_toRightOf="@id/courseIssuerImageCard"
