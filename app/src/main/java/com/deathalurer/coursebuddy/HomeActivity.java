@@ -2,6 +2,7 @@ package com.deathalurer.coursebuddy;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.deathalurer.coursebuddy.Fragments.Fragment_Home;
+import com.deathalurer.coursebuddy.Fragments.Fragment_My_Courses;
 import com.deathalurer.coursebuddy.Fragments.Fragment_Profile;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -95,15 +97,20 @@ public class HomeActivity extends AppCompatActivity {
         BottomNavigationView.OnNavigationItemSelectedListener listener = new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment fragment = null;
                 switch (item.getItemId()){
                     case R.id.menu_home:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new Fragment_Home()).commit();
+                            fragment = new Fragment_Home();
+                            break;
                     case R.id.menu_course:
-                        Toast.makeText(getBaseContext(),"Home",Toast.LENGTH_SHORT).show();
+                        fragment = new Fragment_My_Courses();
+                        break;
                     case R.id.menu_profile:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new Fragment_Profile()).commit();
+                        fragment = new Fragment_Profile();
+                        break;
                 }
-                return false;
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,fragment).commit();
+                return  true;
             }
         };
 
