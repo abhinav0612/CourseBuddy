@@ -1,6 +1,7 @@
 package com.deathalurer.coursebuddy.Fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.google.android.material.tabs.TabLayout;
 public class Fragment_My_Courses extends Fragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private PageAdapter adapter;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -34,17 +36,36 @@ public class Fragment_My_Courses extends Fragment {
         tabLayout = view.findViewById(R.id.coursesTabLayout);
         viewPager = view.findViewById(R.id.coursesViewPager);
 
+        initializeTabLayoutWithViewPager();
+
+    }
+    void initializeTabLayoutWithViewPager(){
         tabLayout.addTab(tabLayout.newTab().setText("Enrolled"));
         tabLayout.addTab(tabLayout.newTab().setText("Completed"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        PageAdapter adapter = new PageAdapter(getFragmentManager(),tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+//        adapter = new PageAdapter(getFragmentManager(),tabLayout.getTabCount());
+//        viewPager.setAdapter(adapter);
+//        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        getChildFragmentManager().beginTransaction().replace(R.id.childFrameLayout,new Fragment_Course_Enrolled())
+                .addToBackStack(null)
+                .commit();
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
+                switch (tab.getPosition()){
+                    case 0:
+                        getChildFragmentManager().beginTransaction().replace(R.id.childFrameLayout,new Fragment_Course_Enrolled())
+                                .addToBackStack(null)
+                                .commit();
+                        break;
+                    case 1:
+                        getChildFragmentManager().beginTransaction().replace(R.id.childFrameLayout,new Fragment_Course_Completed())
+                                .commit();
+                        break;
+
+                }
+
             }
 
             @Override
@@ -54,10 +75,18 @@ public class Fragment_My_Courses extends Fragment {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
+                //getFragmentManager().
             }
         });
 
-
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e("Method","On resume my courses fragment");
+       //initializeTabLayoutWithViewPager();
+//        getFragmentManager().beginTransaction()
+//                .replace(R.id.frameLayout,new Fragment_Course_Enrolled())
+//                .commit();
     }
 }
