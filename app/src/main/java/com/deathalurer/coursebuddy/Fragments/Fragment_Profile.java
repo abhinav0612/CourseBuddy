@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.deathalurer.coursebuddy.R;
@@ -34,6 +35,7 @@ public class Fragment_Profile extends Fragment {
     private FirebaseUser user;
     private Button editProfile;
     private String userUID;
+    private CardView viewCertificates;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class Fragment_Profile extends Fragment {
     userPhone = view.findViewById(R.id.userPhone);
     userImage = view.findViewById(R.id.profilePicture);
     editProfile = view.findViewById(R.id.editProfile);
+    viewCertificates = view.findViewById(R.id.certificatedCard);
     mAuth = FirebaseAuth.getInstance();
     db = FirebaseFirestore.getInstance();
     user = mAuth.getCurrentUser();
@@ -72,6 +75,15 @@ public class Fragment_Profile extends Fragment {
         @Override
         public void onClick(View view) {
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new Fragment_Profile_Edit())
+                    .commit();
+        }
+    });
+
+    viewCertificates.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            getFragmentManager().beginTransaction().replace(R.id.frameLayout,new Fragment_Certificate())
+                    .addToBackStack(null)
                     .commit();
         }
     });
