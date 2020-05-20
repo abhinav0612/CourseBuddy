@@ -1,6 +1,7 @@
 package com.deathalurer.coursebuddy.RecyclerViewAdapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.deathalurer.coursebuddy.EnrolledStudent;
+import com.deathalurer.coursebuddy.Fragments.Friend_Details_Fragment;
 import com.deathalurer.coursebuddy.R;
 
 import java.util.ArrayList;
@@ -41,13 +43,19 @@ public class EnrolledStudentAdapter extends RecyclerView.Adapter<EnrolledStudent
     }
 
     @Override
-    public void onBindViewHolder(@NonNull StudentViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull StudentViewHolder holder, final int position) {
         holder.studentName.setText(studentList.get(position).getStudentName());
         holder.studentCollege.setText(studentList.get(position).getStudentCollege());
         holder.showStudentDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //fragmentManager.beginTransaction().replace(R.id.frameLayout,new)
+                Friend_Details_Fragment fragment = new Friend_Details_Fragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("UserId",studentList.get(position).getStudentReference().getId());
+                fragment.setArguments(bundle);
+                fragmentManager.beginTransaction().replace(R.id.frameLayout,fragment)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
     }

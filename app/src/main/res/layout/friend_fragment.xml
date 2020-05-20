@@ -56,6 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_margin="10dp"
             android:textSize="20dp"
+            android:id="@+id/friendEnrolled"
             android:layout_height="wrap_content"
             android:text="Course Enrolled: 20"/>
     </androidx.cardview.widget.CardView>
@@ -75,6 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_margin="10dp"
             android:textSize="20dp"
+            android:id="@+id/friendCompleted"
             android:layout_height="wrap_content"
             android:text="Course Completed: 15"/>
     </androidx.cardview.widget.CardView>
