@@ -20,7 +20,11 @@ import com.deathalurer.coursebuddy.Course;
 import com.deathalurer.coursebuddy.R;
 import com.deathalurer.coursebuddy.RecyclerViewAdapters.ReviewRecyclerAdapter;
 import com.deathalurer.coursebuddy.Review;
+import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -32,11 +36,14 @@ import java.util.ArrayList;
  * Created by Abhinav Singh on 18,May,2020
  */
 public class Fragment_Course extends Fragment {
-    private TextView courseName,courseDescription,courseEnrolledCount,curseIssuer,courseIssuer;
+    private TextView courseName,courseDescription,courseEnrolledCount,reviewTextView,courseIssuer;
     private ImageView courseImage;
+    private View customDemoView;
     private RecyclerView recyclerView;
     private ArrayList<Review> reviews = new ArrayList<>();
     private FirebaseFirestore db;
+    private String docId;
+    private String course_name;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -52,22 +59,30 @@ public class Fragment_Course extends Fragment {
         courseEnrolledCount = view.findViewById(R.id.courseTotalEnrolled);
         courseImage = view.findViewById(R.id.courseImage);
         courseIssuer = view.findViewById(R.id.courseIssuer);
+        reviewTextView = view.findViewById(R.id.demoReview);
+        customDemoView = view.findViewById(R.id.demoView);
         recyclerView = view.findViewById(R.id.reviewsRecyclerView);
 
+        course_name = getArguments().getString("CourseName");
         db = FirebaseFirestore.getInstance();
         db.collection("Courses")
-                .whereEqualTo("CourseName",getArguments().getString("CourseName"))
+                .whereEqualTo("CourseName",course_name)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
                         for(QueryDocumentSnapshot snapshots : queryDocumentSnapshots){
                             Course c = snapshots.toObject(Course.class);
                             courseName.setText(c.getCourseName());
                             courseDescription.setText(c.getCourseDescription());
                             courseIssuer.setText(c.getCourseIssuer());
-                            courseEnrolledCount.setText("Total Students Enrolled: "+c.getCourseEnrolledStudent());
+//                            courseEnrolledCount.setText("Total Students Enrolled: "+c.getCourseEnrolledStudent());
+                            customDemoView.setVisibility(View.VISIBLE);
+                            reviewTextView.setVisibility(View.VISIBLE);
                             Glide.with(getContext()).load(c.getCourseImage()).into(courseImage);
+                            docId = snapshots.getId();
+
 
                             db.collection("Courses")
                                     .document(snapshots.getId())
@@ -88,10 +103,33 @@ public class Fragment_Course extends Fragment {
                                             }
                                         }
                                     });
+                            snapshots.getReference().collection("Endrolled")
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                                            task.getResult().size();
+                                            courseEnrolledCount.setText("Total Students Enrolled: "+task.getResult().size());
+                                        }
+                                    });
 
                         }
                     }
                 });
+       // for fetching enrolled students
+        courseEnrolledCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Enrolled_Student_Fragment fragment = new Enrolled_Student_Fragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("CourseName",course_name);
+                bundle.putString("DocId",docId);
+                fragment.setArguments(bundle);
+                getFragmentManager().beginTransaction().replace(R.id.frameLayout,fragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
 
 
     }

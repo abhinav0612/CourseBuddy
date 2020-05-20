@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <ScrollView
@@ -47,36 +48,49 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 />
-            <TextView
+            <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/courseTotalEnrolled"
-                android:layout_below="@id/courseDescription"
-                android:textSize="20dp"
-                android:layout_centerHorizontal="true"
+                android:id="@+id/cardViewEnrolled"
+                app:cardBackgroundColor="#37803A"
                 android:layout_marginTop="15dp"
                 android:layout_marginLeft="10dp"
+                android:layout_centerHorizontal="true"
                 android:layout_marginRight="10dp"
-                />
+                app:cardCornerRadius="10dp"
+                android:layout_below="@id/courseDescription"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/courseTotalEnrolled"
+                    android:layout_margin="10dp"
+                    android:textSize="20dp"
+                    android:layout_centerHorizontal="true"
+                    />
+            </androidx.cardview.widget.CardView>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
-                android:layout_height="0.5dp"
+                android:layout_height="0.2dp"
+                android:visibility="invisible"
+                android:id="@+id/demoView"
                 android:layout_marginBottom="15dp"
                 android:layout_marginTop="15dp"
-                android:layout_below="@id/courseTotalEnrolled"
+                android:layout_below="@id/cardViewEnrolled"
                 android:background="#737275"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:textStyle="bold"
+                android:visibility="invisible"
+                android:layout_below="@id/demoView"
                 android:id="@+id/demoReview"
                 android:textSize="16dp"
-                android:layout_below="@id/courseTotalEnrolled"
                 android:text="Reviews"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
