@@ -6,7 +6,7 @@
 <ImageView
     android:layout_width="100dp"
     android:layout_height="100dp"
-    android:layout_marginTop="50dp"
+    android:layout_marginTop="30dp"
     android:id="@+id/profilePicture"
     android:layout_centerHorizontal="true"/>
     <androidx.cardview.widget.CardView
@@ -14,6 +14,7 @@
         app:cardCornerRadius="10dp"
         android:layout_marginLeft="30dp"
         android:id="@+id/enrolledCard"
+        android:visibility="invisible"
         app:cardBackgroundColor="#03A9F4"
         android:layout_below="@id/profilePicture"
         android:layout_marginTop="20dp"
@@ -22,6 +23,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_margin="10dp"
+            android:id="@+id/courseEnrolledCount"
             android:layout_height="wrap_content"
             android:text="Course Enrolled: 20"/>
     </androidx.cardview.widget.CardView>
@@ -34,11 +36,13 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
         android:id="@+id/completedCard"
+        android:visibility="invisible"
         android:layout_below="@id/profilePicture"
         android:layout_height="40dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_margin="10dp"
+            android:id="@+id/courseCompletedCount"
             android:layout_height="wrap_content"
             android:text="Course Completed: 20"/>
     </androidx.cardview.widget.CardView>
@@ -67,14 +71,19 @@
         android:gravity="left"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
-        android:layout_margin="20dp"/>
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@drawable/custom_text_view"
         android:id="@+id/userEmail"
         android:layout_below="@id/userName"
-        android:layout_margin="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"/>
     <TextView
@@ -83,13 +92,46 @@
         android:background="@drawable/custom_text_view"
         android:layout_below="@id/userEmail"
         android:id="@+id/userPhone"
-        android:layout_margin="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+
         android:paddingLeft="20dp"
+        android:paddingTop="10dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/custom_text_view"
+        android:layout_below="@id/userPhone"
+        android:id="@+id/userCollege"
+        android:layout_marginRight="20dp"
+        android:maxLines="3"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_text_view"
+        android:layout_below="@id/userCollege"
+        android:id="@+id/userBio"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        android:maxLines="4"
+        android:ellipsize="end"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"
         android:paddingTop="10dp"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/userPhone"
+        android:layout_below="@id/userBio"
+        android:padding="10dp"
+        android:background="@drawable/custom_button_2"
         android:layout_centerHorizontal="true"
         android:text="Edit Profile"
         android:id="@+id/editProfile"/>

@@ -17,6 +17,7 @@ import com.deathalurer.coursebuddy.RecyclerViewAdapters.CertificatesAdapter;
 import com.deathalurer.coursebuddy.RecyclerViewAdapters.ReviewRecyclerAdapter;
 import com.deathalurer.coursebuddy.Review;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -34,6 +35,7 @@ public class Fragment_Certificate extends Fragment {
     private FirebaseUser user;
     private RecyclerView recyclerView;
     private ArrayList<Certificate> list;
+    private FloatingActionButton fab;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -44,10 +46,25 @@ public class Fragment_Certificate extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.recyclerViewCertificate);
+        fab = view.findViewById(R.id.fab);
+
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
         list = new ArrayList<>();
+
+        getCertificates();
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+    }
+
+    void getCertificates(){
         db.collection("Users")
                 .whereEqualTo("UserUniqueID",user.getUid())
                 .get()
@@ -79,6 +96,5 @@ public class Fragment_Certificate extends Fragment {
                         }
                     }
                 });
-
     }
 }

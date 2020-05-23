@@ -22,11 +22,12 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 public class SignUp extends AppCompatActivity {
     private Button signUp,signUpWithGoogle;
     private TextView signIn;
-    private EditText userName,userEmail,userPassword,userPhone;
+    private EditText userName,userEmail,userPassword,userPhone,userCollege;
     private FirebaseAuth mAuth;
     public static final String USER_NAME  = "UserName";
     public static final String USER_EMAIL  = "UserEmail";
     public static final String USER_PHONE  = "UserPhone";
+    public static final String USER_COLLEGE = "UserCollege";
 
 
     @Override
@@ -37,6 +38,7 @@ public class SignUp extends AppCompatActivity {
         signIn = findViewById(R.id.goToSignIn);
         userName = findViewById(R.id.signUpName);
         userEmail = findViewById(R.id.signUpEmail);
+        userCollege = findViewById(R.id.signUpCollege);
         userPhone = findViewById(R.id.signupPhone);
         userPassword = findViewById(R.id.signUpPassword);
 
@@ -48,14 +50,15 @@ public class SignUp extends AppCompatActivity {
                 final String name = userName.getText().toString().trim();
                 final String email = userEmail.getText().toString().trim();
                 final String phone = userPhone.getText().toString().trim();
+                final String college = userCollege.getText().toString().trim();
                 String password = userPassword.getText().toString().trim();
-                if(name.isEmpty() || email.isEmpty() || password.isEmpty())
-                    Toast.makeText(getBaseContext(),"Please fill all details!",Toast.LENGTH_SHORT).show();
+                if(name.isEmpty() || email.isEmpty() || password.isEmpty() || college.isEmpty())
+                    Toast.makeText(getBaseContext(),"Please fill all the details!",Toast.LENGTH_SHORT).show();
                 mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            //FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(getBaseContext(), "Registration Successful",
                                     Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getBaseContext(),HomeActivity.class);
@@ -65,6 +68,7 @@ public class SignUp extends AppCompatActivity {
                                 intent.putExtra(USER_PHONE,"");
                             intent.putExtra(USER_NAME,name);
                             intent.putExtra(USER_EMAIL,email);
+                            intent.putExtra(USER_COLLEGE,college);
                             startActivity(intent);
                             finish();
                         }

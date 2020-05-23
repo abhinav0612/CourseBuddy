@@ -1,18 +1,22 @@
 package com.deathalurer.coursebuddy.RecyclerViewAdapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.deathalurer.coursebuddy.R;
 import com.deathalurer.coursebuddy.Review;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Abhinav Singh on 18,May,2020
@@ -40,6 +44,8 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<ReviewRecyclerAd
         Review review = reviews.get(position);
         holder.reviewerName.setText(review.getReviewerName());
         holder.reviewerReview.setText(review.getReview());
+//        Random random = new Random();
+//        int color =
     }
 
     @Override
@@ -49,11 +55,13 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<ReviewRecyclerAd
 
     public class ReviewViewHolder extends RecyclerView.ViewHolder{
         private TextView reviewerName,reviewerReview;
+        private CardView cardView;
 
         public ReviewViewHolder(@NonNull View itemView) {
             super(itemView);
             reviewerName = itemView.findViewById(R.id.reviewerName);
             reviewerReview = itemView.findViewById(R.id.reviewerReview);
+            cardView = itemView.findViewById(R.id.reviewCard);
         }
     }
 }

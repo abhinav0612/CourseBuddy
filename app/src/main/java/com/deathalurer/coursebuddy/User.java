@@ -8,16 +8,34 @@ import java.util.ArrayList;
  * Created by Abhinav Singh on 19,May,2020
  */
 public class User {
-    private String Username,phoneNumber,UserUniqueId,Email;
+    private String Username,phoneNumber,UserUniqueId,Email,userBio,userCollege;
     private ArrayList<DocumentReference> courseCompleted,courseEnrolled;
 
-    public User(String username, String phoneNumber, String userUniqueId, String email, ArrayList<DocumentReference> courseCompleted, ArrayList<DocumentReference> courseEnrolled) {
+    public User(String username, String phoneNumber, String userUniqueId, String email, String userBio, String userCollege, ArrayList<DocumentReference> courseCompleted, ArrayList<DocumentReference> courseEnrolled) {
         Username = username;
         this.phoneNumber = phoneNumber;
         UserUniqueId = userUniqueId;
         Email = email;
+        this.userBio = userBio;
+        this.userCollege = userCollege;
         this.courseCompleted = courseCompleted;
         this.courseEnrolled = courseEnrolled;
+    }
+
+    public String getUserBio() {
+        return userBio;
+    }
+
+    public void setUserBio(String userBio) {
+        this.userBio = userBio;
+    }
+
+    public String getUserCollege() {
+        return userCollege;
+    }
+
+    public void setUserCollege(String userCollege) {
+        this.userCollege = userCollege;
     }
 
     public User() {

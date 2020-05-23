@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,12 +21,15 @@ import com.deathalurer.coursebuddy.Course;
 import com.deathalurer.coursebuddy.R;
 import com.deathalurer.coursebuddy.RecyclerViewAdapters.ReviewRecyclerAdapter;
 import com.deathalurer.coursebuddy.Review;
+import com.deathalurer.coursebuddy.User;
 import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -36,14 +40,18 @@ import java.util.ArrayList;
  * Created by Abhinav Singh on 18,May,2020
  */
 public class Fragment_Course extends Fragment {
-    private TextView courseName,courseDescription,courseEnrolledCount,reviewTextView,courseIssuer;
+    private TextView courseName,courseDescription,courseEnrolledCount,reviewTextView,courseIssuer,courseEnrolledButton,courseCompletedButton;
     private ImageView courseImage;
     private View customDemoView;
     private RecyclerView recyclerView;
     private ArrayList<Review> reviews = new ArrayList<>();
     private FirebaseFirestore db;
+    private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
     private String docId;
     private String course_name;
+    private CardView enrolledCard;
+    private DocumentReference docReference;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,7 +70,92 @@ public class Fragment_Course extends Fragment {
         reviewTextView = view.findViewById(R.id.demoReview);
         customDemoView = view.findViewById(R.id.demoView);
         recyclerView = view.findViewById(R.id.reviewsRecyclerView);
+        enrolledCard = view.findViewById(R.id.cardViewEnrolled);
+        courseEnrolledButton = view.findViewById(R.id.layoutEnrolledTextView);
+        courseCompletedButton = view.findViewById(R.id.layoutCompletedTextView);
 
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
+       getData();
+
+       // for fetching enrolled students
+        courseEnrolledCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Enrolled_Student_Fragment fragment = new Enrolled_Student_Fragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("CourseName",course_name);
+                bundle.putString("DocId",docId);
+                fragment.setArguments(bundle);
+                getFragmentManager().beginTransaction().replace(R.id.frameLayout,fragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+        //for already enrolled or completed condition
+
+        courseEnrolledButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                db.collection("Users")
+                        .whereEqualTo("UserUniqueID",mUser.getUid())
+                        .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots){
+                            ArrayList<DocumentReference> list = (ArrayList<DocumentReference>) snapshot.get("courseEnrolled");
+                            docReference = db.collection("Courses")
+                                    .document(docId);
+                            list.add(docReference);
+                            db.collection("Users")
+                                    .document(snapshot.getId())
+                                    .update("courseEnrolled",list)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(getContext(),"Hurray! Course added as enrolled.",Toast.LENGTH_SHORT)
+                                                    .show();
+                                        }
+                                    });
+                        }
+                    }
+                });
+            }
+        });
+
+        courseCompletedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                db.collection("Users")
+                        .whereEqualTo("UserUniqueID",mUser.getUid())
+                        .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots){
+                            ArrayList<DocumentReference> list = (ArrayList<DocumentReference>) snapshot.get("courseCompleted");
+                            docReference = db.collection("Courses")
+                                    .document(docId);
+                            list.add(docReference);
+                            db.collection("Users")
+                                    .document(snapshot.getId())
+                                    .update("courseCompleted",list)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(getContext(),"Hurray! Course added as completed.",Toast.LENGTH_SHORT)
+                                                    .show();
+                                        }
+                                    });
+                        }
+                    }
+                });
+            }
+        });
+
+
+    }
+    void getData(){
         course_name = getArguments().getString("CourseName");
         db = FirebaseFirestore.getInstance();
         db.collection("Courses")
@@ -83,6 +176,16 @@ public class Fragment_Course extends Fragment {
                             Glide.with(getContext()).load(c.getCourseImage()).into(courseImage);
                             docId = snapshots.getId();
 
+                            snapshots.getReference().collection("Endrolled")
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                                            task.getResult().size();
+                                            courseEnrolledCount.setText("Total Students Enrolled: "+task.getResult().size());
+                                            enrolledCard.setVisibility(View.VISIBLE);
+                                        }
+                                    });
 
                             db.collection("Courses")
                                     .document(snapshots.getId())
@@ -96,41 +199,17 @@ public class Fragment_Course extends Fragment {
                                                     Review r = documentSnapshot.toObject(Review.class);
                                                     reviews.add(r);
                                                 }
-                                                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,true));
                                                 ReviewRecyclerAdapter adapter = new ReviewRecyclerAdapter(reviews,getContext());
                                                 recyclerView.setAdapter(adapter);
                                                 adapter.notifyDataSetChanged();
                                             }
                                         }
                                     });
-                            snapshots.getReference().collection("Endrolled")
-                                    .get()
-                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                                            task.getResult().size();
-                                            courseEnrolledCount.setText("Total Students Enrolled: "+task.getResult().size());
-                                        }
-                                    });
+
 
                         }
                     }
                 });
-       // for fetching enrolled students
-        courseEnrolledCount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Enrolled_Student_Fragment fragment = new Enrolled_Student_Fragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("CourseName",course_name);
-                bundle.putString("DocId",docId);
-                fragment.setArguments(bundle);
-                getFragmentManager().beginTransaction().replace(R.id.frameLayout,fragment)
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
-
-
     }
 }

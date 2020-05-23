@@ -8,8 +8,9 @@
     tools:context=".Login">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_margin="10dp"
+        android:layout_margin="15dp"
         app:cardCornerRadius="10dp"
+        android:elevation="25dp"
         android:layout_centerVertical="true"
         android:layout_height="400dp">
         <RelativeLayout
@@ -28,7 +29,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_marginTop="20dp"
-                android:gravity="center"
+                android:paddingLeft="55dp"
                 android:background="@drawable/custom_text_view"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
@@ -39,14 +40,14 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_below="@id/demoText"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="18dp"
                 android:layout_marginLeft="30dp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_account_circle_black_24dp"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_marginTop="20dp"
-                android:gravity="center"
+                android:paddingLeft="55dp"
                 android:background="@drawable/custom_text_view"
                 android:layout_height="40dp"
                 android:text="password"
@@ -57,10 +58,10 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_below="@id/demoText"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="78dp"
                 android:layout_marginLeft="30dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_account_circle_black_24dp"/>
+                android:src="@drawable/ic_lock_black_24dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -75,6 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Login"
+                android:background="@drawable/custom_button_2"
                 android:layout_below="@id/loginPassword"
                 android:layout_marginTop="40dp"
                 android:layout_centerHorizontal="true"
@@ -98,11 +100,15 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/goToSignUp"
                 />
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sign in with Google"
                 android:layout_below="@id/goToSignUp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:background="@drawable/custom_button"
                 android:layout_marginTop="20dp"
                 android:layout_centerHorizontal="true"/>
         </RelativeLayout>

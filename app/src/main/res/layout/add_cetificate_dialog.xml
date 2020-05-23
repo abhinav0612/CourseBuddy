@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    app:cardCornerRadius="15dp"
+    android:layout_margin="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:elevation="15dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Add Certificate"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:id="@+id/addCertificateTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_below="@id/addCertificateTextView"
+        android:layout_marginTop="15dp"
+        android:hint="Add Course Name"
+        android:background="@drawable/dialog_back"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/addCertificateNameEt"
+        android:layout_height="40dp"/>
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_below="@id/addCertificateNameEt"
+        android:id="@+id/addCertificateCredentialsSpinner"
+        android:hint="Add course issuer name"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/dialog_back"
+        android:layout_height="40dp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_below="@id/addCertificateCredentialsSpinner"
+        android:id="@+id/addCertificateCredentialsEt"
+        android:hint="Add course credentials"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/dialog_back"
+        android:layout_height="40dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:textColor="#115914"
+        android:paddingRight="20dp"
+        android:layout_margin="20dp"
+        android:id="@+id/addButton"
+        android:layout_below="@id/addCertificateCredentialsEt"
+        android:text="Add"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_alignParentRight="true"
+        android:paddingRight="100dp"
+        android:textColor="#7A0B03"
+        android:id="@+id/cancelButton"
+        android:layout_margin="20dp"
+        android:layout_below="@id/addCertificateCredentialsEt"
+        android:text="Cancel"/>
+
+
+</RelativeLayout>
+</androidx.cardview.widget.CardView>

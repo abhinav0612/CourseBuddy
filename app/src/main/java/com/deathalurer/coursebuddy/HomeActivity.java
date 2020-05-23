@@ -2,9 +2,13 @@ package com.deathalurer.coursebuddy;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -52,7 +56,11 @@ public class HomeActivity extends AppCompatActivity {
         user.put("Phone Number",intent.getStringExtra(SignUp.USER_EMAIL));
         user.put("Email",intent.getStringExtra(SignUp.USER_PHONE));
         user.put("UserUniqueID",firebaseUser.getUid());
+        user.put("college",intent.getStringExtra(SignUp.USER_COLLEGE));
 
+        if (ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},2);
+        }
         db.collection("Users")
                 .add(user)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -114,6 +122,15 @@ public class HomeActivity extends AppCompatActivity {
             }
         };
 
+
         bottomNavigationView.setOnNavigationItemSelectedListener(listener);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == 2  && grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            Log.e("______","Granted");
+        }
     }
 }

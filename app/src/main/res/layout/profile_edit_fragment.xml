@@ -29,6 +29,7 @@
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
         android:layout_margin="20dp"
+        android:hint="Name"
         android:paddingBottom="10dp"/>
     <EditText
         android:layout_width="match_parent"
@@ -36,8 +37,11 @@
         android:background="@drawable/custom_text_view"
         android:id="@+id/et_userPhone"
         android:layout_below="@id/et_userName"
-        android:layout_margin="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
         android:paddingLeft="20dp"
+        android:hint="Phone Number"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"/>
     <EditText
@@ -46,39 +50,52 @@
         android:background="@drawable/custom_text_view"
         android:layout_below="@id/et_userPhone"
         android:id="@+id/et_userEmail"
-        android:layout_margin="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
+        android:hint="Email"
         android:paddingBottom="10dp"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:hint="Old Password"
         android:background="@drawable/custom_text_view"
         android:layout_below="@id/et_userEmail"
-        android:id="@+id/oldPassword"
-        android:visibility="gone"
-        android:layout_margin="20dp"
+        android:id="@+id/et_userCollege"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        android:maxLines="3"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
+        android:hint="College"
         android:paddingBottom="10dp"/>
+
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:hint="New Password"
-        android:visibility="gone"
+        android:layout_height="wrap_content"
         android:background="@drawable/custom_text_view"
-        android:layout_below="@id/oldPassword"
-        android:id="@+id/newPassword"
-        android:layout_margin="20dp"
+        android:layout_below="@id/et_userCollege"
+        android:id="@+id/et_userBio"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        android:hint="Bio"
         android:paddingLeft="20dp"
+        android:maxLines="4"
+        android:ellipsize="end"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"/>
+
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save"
-        android:layout_below="@id/newPassword"
+        android:padding="10dp"
+        android:background="@drawable/custom_button_2"
+        android:layout_below="@id/et_userBio"
         android:layout_centerHorizontal="true"
         android:id="@+id/updateProfileButton"/>
 </RelativeLayout>

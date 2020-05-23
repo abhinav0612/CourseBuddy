@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">CourseBuddy</string>
+    <string-array name="issuer">
+        <item></item>
+        <item>Coursera</item>
+        <item>EDX</item>
+        <item>Udacity</item>
+        <item>Udemy</item>
+    </string-array>
 </resources>
