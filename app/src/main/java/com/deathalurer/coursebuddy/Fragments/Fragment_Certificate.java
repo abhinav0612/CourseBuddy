@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -70,33 +71,21 @@ public class Fragment_Certificate extends Fragment {
         Bundle arguments = getArguments();
         if( arguments != null && getArguments().containsKey("UserId")){
             db.collection("Users")
-                    .whereEqualTo("UserUniqueID",getArguments().getString("UserId"))
+                    .document(arguments.getString("UserId"))
+                    .collection("Certificates")
                     .get()
                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                         @Override
                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            if(queryDocumentSnapshots!= null){
-                                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                                    db.collection("Users")
-                                            .document(documentSnapshot.getId())
-                                            .collection("Certificates")
-                                            .get()
-                                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                                @Override
-                                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                                    if(queryDocumentSnapshots != null){
-                                                        for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                                                            Certificate r = documentSnapshot.toObject(Certificate.class);
-                                                            list.add(r);
-                                                        }
-                                                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                                                        CertificatesAdapter adapter = new CertificatesAdapter(getContext(),list);
-                                                        recyclerView.setAdapter(adapter);
-                                                        adapter.notifyDataSetChanged();
-                                                    }
-                                                }
-                                            });
+                            if(queryDocumentSnapshots != null){
+                                for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                                    Certificate r = documentSnapshot.toObject(Certificate.class);
+                                    list.add(r);
                                 }
+                                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                CertificatesAdapter adapter = new CertificatesAdapter(getContext(),list);
+                                recyclerView.setAdapter(adapter);
+                                adapter.notifyDataSetChanged();
                             }
                         }
                     });
