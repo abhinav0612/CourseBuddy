@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.deathalurer.coursebuddy.R;
 import com.deathalurer.coursebuddy.User;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,6 +28,7 @@ public class Friend_Details_Fragment extends Fragment {
     private TextView friendName,friendCollegeName,friendBio,friendEnrolledCount,friendCompletedCount;
     private CardView viewFriendCertificates;
     private FirebaseFirestore db;
+    private String friendId="";
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,9 +46,10 @@ public class Friend_Details_Fragment extends Fragment {
         friendCompletedCount = view.findViewById(R.id.friendCompleted);
         viewFriendCertificates = view.findViewById(R.id.friendCertificates);
         db = FirebaseFirestore.getInstance();
+        friendId = getArguments().getString("UserId");
 
         db.collection("Users")
-                .document(getArguments().getString("UserId"))
+                .document(friendId)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -54,7 +58,24 @@ public class Friend_Details_Fragment extends Fragment {
                         friendName.setText(user.getUsername());
                         friendEnrolledCount.setText("Course Enrolled: " + user.getCourseEnrolled().size());
                         friendCompletedCount.setText("Course Enrolled: "+ user.getCourseCompleted().size());
+                        friendBio.setText(user.getUserBio());
+                        friendCollegeName.setText(user.getUserCollege());
+                        Glide.with(getContext()).load(user.getProfileImage()).apply(RequestOptions.circleCropTransform())
+                                .into(friendImage);
                     }
                 });
+
+        viewFriendCertificates.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment_Certificate fragment = new Fragment_Certificate();
+                Bundle bundle = new Bundle();
+                bundle.putString("UserId",friendId);
+                fragment.setArguments(bundle);
+                getFragmentManager().beginTransaction().replace(R.id.frameLayout,fragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
     }
 }

@@ -62,14 +62,11 @@ public class Enrolled_Student_Fragment extends Fragment {
                             for(QueryDocumentSnapshot snapshot : queryDocumentSnapshots){
                                 final String collegeName = snapshot.getString("collegeName");
                                 final DocumentReference reference = (DocumentReference) snapshot.get("student");
-                                Log.i(TAG,collegeName + " "+reference.getId());
                                 db.collection("Users").document(reference.getId())
                                         .get()
                                         .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                             @Override
                                             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                Log.i(TAG,documentSnapshot.getData().toString());
-                                                Log.i(TAG,documentSnapshot.getString("Username"));
                                                 EnrolledStudent student = new EnrolledStudent(documentSnapshot.getString("Username"),collegeName,reference);
                                                 studentsList.add(student);
                                                 Log.i(TAG,student.getStudentName() + " " + student.getStudentCollege());

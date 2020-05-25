@@ -19,6 +19,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.deathalurer.coursebuddy.Login;
 import com.deathalurer.coursebuddy.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -93,6 +96,9 @@ public class Fragment_Profile_Edit extends Fragment {
                                 userEmail.setText(document.getString("email"));
                                 userBio.setText(document.getString("bio"));
                                 userCollege.setText(document.getString("college"));
+                                Glide.with(getContext()).load(document.getString("profileImage"))
+                                        .apply(RequestOptions.circleCropTransform())
+                                        .into(userImage);
                             }
                         }
                     }
@@ -136,8 +142,9 @@ public class Fragment_Profile_Edit extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                getActivity().startActivityForResult(intent,1);
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+
+                startActivityForResult(intent,3);
             }
         });
 
@@ -146,8 +153,8 @@ public class Fragment_Profile_Edit extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == getActivity().RESULT_OK && data!=null && data.getData() !=null){
-            userImage.setImageURI(data.getData());
+        if (requestCode == 3 && resultCode == getActivity().RESULT_OK && data!=null){
+            Log.i(TAG," onActivity result");
             InputStream in = null;
             try {
                 in = getActivity().getContentResolver().openInputStream(data.getData());
@@ -157,20 +164,38 @@ public class Fragment_Profile_Edit extends Fragment {
             Bitmap bitmap = BitmapFactory.decodeStream(in);
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+            Glide.with(this).load(bitmap).apply(RequestOptions.circleCropTransform()).into(userImage);
             byte[] uploadData = bos.toByteArray();
 
             UploadTask uploadTask = myReference.putBytes(uploadData);
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Log.i("_______"," " + taskSnapshot.getStorage().getPath());
-//                    taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                        @Override
-//                        public void onSuccess(Uri uri) {
-//
-//                        }
-//                    });
-                    Toast.makeText(getActivity(),"Image Uploaded",Toast.LENGTH_SHORT).show();
+                public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
+                    taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                                final String url = task.getResult().toString();
+                                db.collection("Users")
+                                        .whereEqualTo("UserUniqueID",user.getUid())
+                                        .get()
+                                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                             db.collection("Users")
+                                             .document(documentID)
+                                             .update("profileImage",url)
+                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                         @Override
+                                                         public void onSuccess(Void aVoid) {
+                                                             Toast.makeText(getActivity(),"Image Uploaded",Toast.LENGTH_SHORT).show();
+                                                         }
+                                                     });
+                                            }
+                                        });
+
+                        }
+                    });
+
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override

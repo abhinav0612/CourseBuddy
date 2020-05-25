@@ -51,7 +51,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:id="@+id/cardViewEnrolled"
-                app:cardBackgroundColor="#2E7531"
+                app:cardBackgroundColor="#75984B"
                 android:layout_marginTop="15dp"
                 android:layout_marginLeft="10dp"
                 android:visibility="invisible"
@@ -103,37 +103,39 @@
                 android:layout_width="250dp"
                 android:layout_below="@id/reviewsRecyclerView"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/backgroun_layout"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/background_card_layout"
                 android:padding="10dp"
                 android:layout_centerHorizontal="true"
                 android:layout_height="60dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:text="Enrolled"
-                    android:layout_marginLeft="2dp"
                     android:gravity="center_horizontal"
-                    android:textSize="20dp"
+                    android:textSize="18dp"
                    android:textStyle="bold"
+                    android:textColor="#fff"
                     android:layout_marginTop="5dp"
                     android:id="@+id/layoutEnrolledTextView"
                     android:layout_marginRight="15dp"
                     android:layout_toLeftOf="@id/layoutDemoView"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="30dp"/>
                 <View
                     android:layout_width="1dp"
                     android:id="@+id/layoutDemoView"
-                    android:background="@color/colorPrimary"
-                    android:layout_centerHorizontal="true"
+                    android:background="#7A1D8A"
+                    android:layout_centerInParent="true"
                     android:layout_height="40dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:text="Completed"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginLeft="15dp"
                     android:gravity="center_vertical"
-                    android:textSize="20dp"
+                    android:textSize="18dp"
+                    android:textColor="#fff"
                     android:textStyle="bold"
                     android:layout_marginTop="5dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginRight="10dp"
                     android:layout_toRightOf="@id/layoutDemoView"
                     android:id="@+id/layoutCompletedTextView"
                     android:layout_height="wrap_content"/>

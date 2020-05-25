@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.deathalurer.coursebuddy.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -98,6 +100,9 @@ public class Fragment_Profile extends Fragment {
                                 userEmail.setText(document.getString("email"));
                                 userBio.setText(document.getString("bio"));
                                 userCollege.setText(document.getString("college"));
+                                Glide.with(getContext()).load(document.getString("profileImage"))
+                                        .apply(RequestOptions.circleCropTransform())
+                                        .into(userImage);
                                 ArrayList<DocumentReference> completedList = (ArrayList<DocumentReference>) document.get("courseCompleted");
                                 ArrayList<DocumentReference> enrolledList = (ArrayList<DocumentReference>) document.get("courseCompleted");
                                 enrolledCoursesCount.setText("Course Enrolled: "+ enrolledList.size()+"");

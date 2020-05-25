@@ -8,18 +8,27 @@ import java.util.ArrayList;
  * Created by Abhinav Singh on 19,May,2020
  */
 public class User {
-    private String Username,phoneNumber,UserUniqueId,Email,userBio,userCollege;
+    private String Username,phoneNumber,UserUniqueId,email,userBio,userCollege,profileImage;
     private ArrayList<DocumentReference> courseCompleted,courseEnrolled;
 
-    public User(String username, String phoneNumber, String userUniqueId, String email, String userBio, String userCollege, ArrayList<DocumentReference> courseCompleted, ArrayList<DocumentReference> courseEnrolled) {
+    public User(String username, String phoneNumber, String userUniqueId, String email, String userBio, String userCollege, ArrayList<DocumentReference> courseCompleted, ArrayList<DocumentReference> courseEnrolled,String profileImage) {
         Username = username;
         this.phoneNumber = phoneNumber;
         UserUniqueId = userUniqueId;
-        Email = email;
+        this.email = email;
         this.userBio = userBio;
         this.userCollege = userCollege;
         this.courseCompleted = courseCompleted;
         this.courseEnrolled = courseEnrolled;
+        this.profileImage = profileImage;
+    }
+
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 
     public String getUserBio() {
@@ -66,11 +75,11 @@ public class User {
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        email = email;
     }
 
     public ArrayList<DocumentReference> getCourseCompleted() {

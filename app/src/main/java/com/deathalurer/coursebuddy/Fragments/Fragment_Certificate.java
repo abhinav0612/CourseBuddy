@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.deathalurer.coursebuddy.AddCertificateDialog;
 import com.deathalurer.coursebuddy.Certificate;
 import com.deathalurer.coursebuddy.R;
 import com.deathalurer.coursebuddy.RecyclerViewAdapters.CertificatesAdapter;
@@ -58,43 +59,81 @@ public class Fragment_Certificate extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                AddCertificateDialog dialog = new AddCertificateDialog();
+                dialog.show(getChildFragmentManager(),"Dialog");
             }
         });
 
     }
 
     void getCertificates(){
-        db.collection("Users")
-                .whereEqualTo("UserUniqueID",user.getUid())
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if(queryDocumentSnapshots!= null){
-                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                                db.collection("Users")
-                                        .document(documentSnapshot.getId())
-                                        .collection("Certificates")
-                                        .get()
-                                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                            @Override
-                                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                                if(queryDocumentSnapshots != null){
-                                                    for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                                                        Certificate r = documentSnapshot.toObject(Certificate.class);
-                                                        list.add(r);
+        Bundle arguments = getArguments();
+        if( arguments != null && getArguments().containsKey("UserId")){
+            db.collection("Users")
+                    .whereEqualTo("UserUniqueID",getArguments().getString("UserId"))
+                    .get()
+                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            if(queryDocumentSnapshots!= null){
+                                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                                    db.collection("Users")
+                                            .document(documentSnapshot.getId())
+                                            .collection("Certificates")
+                                            .get()
+                                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                                    if(queryDocumentSnapshots != null){
+                                                        for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                                                            Certificate r = documentSnapshot.toObject(Certificate.class);
+                                                            list.add(r);
+                                                        }
+                                                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                        CertificatesAdapter adapter = new CertificatesAdapter(getContext(),list);
+                                                        recyclerView.setAdapter(adapter);
+                                                        adapter.notifyDataSetChanged();
                                                     }
-                                                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                                                    CertificatesAdapter adapter = new CertificatesAdapter(getContext(),list);
-                                                    recyclerView.setAdapter(adapter);
-                                                    adapter.notifyDataSetChanged();
                                                 }
-                                            }
-                                        });
+                                            });
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
+        else{
+            db.collection("Users")
+                    .whereEqualTo("UserUniqueID",user.getUid())
+                    .get()
+                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            if(queryDocumentSnapshots!= null){
+                                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                                    db.collection("Users")
+                                            .document(documentSnapshot.getId())
+                                            .collection("Certificates")
+                                            .get()
+                                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                                    if(queryDocumentSnapshots != null){
+                                                        for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                                                            Certificate r = documentSnapshot.toObject(Certificate.class);
+                                                            list.add(r);
+                                                        }
+                                                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                        CertificatesAdapter adapter = new CertificatesAdapter(getContext(),list);
+                                                        recyclerView.setAdapter(adapter);
+                                                        adapter.notifyDataSetChanged();
+                                                    }
+                                                }
+                                            });
+                                }
+                            }
+                        }
+                    });
+        }
+
     }
 }

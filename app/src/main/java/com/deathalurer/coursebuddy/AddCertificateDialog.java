@@ -2,6 +2,7 @@ package com.deathalurer.coursebuddy;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 /**
  * Created by Abhinav Singh on 24,May,2020
@@ -53,6 +56,7 @@ public class AddCertificateDialog extends AppCompatDialogFragment {
         credentials_et = view.findViewById(R.id.addCertificateCredentialsEt);
         issuer = view.findViewById(R.id.addCertificateCredentialsSpinner);
 
+        initSpinner();
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,6 +93,7 @@ public class AddCertificateDialog extends AppCompatDialogFragment {
                                                     Toast.makeText(getContext(),"Certificated Added.",Toast.LENGTH_SHORT).show();
                                                 }
                                             });
+                                    dismiss();
                                 }
                             });
                 }
@@ -99,8 +104,45 @@ public class AddCertificateDialog extends AppCompatDialogFragment {
     }
 
     void initSpinner(){
-        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(getContext(),R.array.issuer,
-                android.R.layout.simple_spinner_item);
+//        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(getContext(),R.array.issuer,
+//                android.R.layout.simple_spinner_item);
+        ArrayList<String> issuerList = new ArrayList<>();
+        issuerList.add("Select Issuer");
+        issuerList.add("Coursera");
+        issuerList.add("EDX");
+        issuerList.add("Udacity");
+        issuerList.add("Udemy");
+
+
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getContext(),R.layout.support_simple_spinner_dropdown_item,issuerList){
+            @Override
+            public boolean isEnabled(int position) {
+                if(position == 0)
+                {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+            @Override
+            public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         issuer.setAdapter(adapter1);
         issuer.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

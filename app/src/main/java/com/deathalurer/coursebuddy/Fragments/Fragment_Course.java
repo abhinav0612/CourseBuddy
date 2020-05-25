@@ -199,7 +199,7 @@ public class Fragment_Course extends Fragment {
                                                     Review r = documentSnapshot.toObject(Review.class);
                                                     reviews.add(r);
                                                 }
-                                                recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,true));
+                                                recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
                                                 ReviewRecyclerAdapter adapter = new ReviewRecyclerAdapter(reviews,getContext());
                                                 recyclerView.setAdapter(adapter);
                                                 adapter.notifyDataSetChanged();
