@@ -24,8 +24,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,10 +53,10 @@ public class HomeActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent.hasExtra(SignUp.USER_NAME)){
-        Map<String,String> user = new HashMap<>();
+        Map<String,Object> user = new HashMap<>();
         user.put("Username",intent.getStringExtra(SignUp.USER_NAME));
-        user.put("Phone Number",intent.getStringExtra(SignUp.USER_EMAIL));
-        user.put("Email",intent.getStringExtra(SignUp.USER_PHONE));
+        user.put("phoneNumber",intent.getStringExtra(SignUp.USER_EMAIL));
+        user.put("email",intent.getStringExtra(SignUp.USER_PHONE));
         user.put("UserUniqueID",firebaseUser.getUid());
         user.put("college",intent.getStringExtra(SignUp.USER_COLLEGE));
 

@@ -19,6 +19,8 @@ import com.deathalurer.coursebuddy.R;
 import com.deathalurer.coursebuddy.RecyclerViewAdapters.EnrolledCoursesAdapter;
 import com.deathalurer.coursebuddy.RecyclerViewAdapters.EnrolledStudentAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -36,7 +38,10 @@ public class Enrolled_Student_Fragment extends Fragment {
     private RelativeLayout filterResults;
     private RecyclerView recyclerView;
     private FirebaseFirestore db;
+    private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
     private  EnrolledStudentAdapter adapter;
+    private String collegeName="";
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,6 +56,25 @@ public class Enrolled_Student_Fragment extends Fragment {
         studentsList = new ArrayList<>();
 
         db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
+
+        getData();
+        getUserCollege();
+
+        filterResults.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!collegeName.isEmpty()){
+                    getFilteredData(collegeName);
+                }
+
+            }
+        });
+
+
+    }
+    void getData(){
         db.collection("Courses")
                 .document(getArguments().getString("DocId"))
                 .collection("Endrolled")
@@ -87,7 +111,56 @@ public class Enrolled_Student_Fragment extends Fragment {
                             Log.i(TAG,"snapshot null");
                     }
                 });
+    }
+    void getFilteredData(String collegeName){
+        db.collection("Courses")
+                .document(getArguments().getString("DocId"))
+                .collection("Endrolled")
+                .whereEqualTo("college",collegeName)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if(queryDocumentSnapshots !=  null){
+                            for(QueryDocumentSnapshot snapshot : queryDocumentSnapshots){
+                                final String collegeName = snapshot.getString("collegeName");
+                                final DocumentReference reference = (DocumentReference) snapshot.get("student");
+                                db.collection("Users").document(reference.getId())
+                                        .get()
+                                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                EnrolledStudent student = new EnrolledStudent(documentSnapshot.getString("Username"),collegeName,reference);
+                                                studentsList.add(student);
+                                                Log.i(TAG,student.getStudentName() + " " + student.getStudentCollege());
+                                                if(studentsList.size() == 1){
+                                                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                    adapter = new EnrolledStudentAdapter(studentsList,getContext(),getFragmentManager());
+                                                    recyclerView.setAdapter(adapter);
+                                                }
+                                                if(adapter != null)
+                                                    adapter.notifyDataSetChanged();
+                                            }
+                                        });
 
 
+                            }
+                        }
+                        else
+                            Log.i(TAG,"snapshot null");
+                    }
+                });
+    }
+    void getUserCollege(){
+        db.collection("Users")
+                .whereEqualTo("UserUniqueId",mUser.getUid())
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for(QueryDocumentSnapshot snapshot : queryDocumentSnapshots)
+                             collegeName = snapshot.getString("college");
+                    }
+                });
     }
 }

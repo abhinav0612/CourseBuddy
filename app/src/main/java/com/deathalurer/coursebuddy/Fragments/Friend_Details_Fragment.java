@@ -1,6 +1,7 @@
 package com.deathalurer.coursebuddy.Fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
  * Created by Abhinav Singh on 21,May,2020
  */
 public class Friend_Details_Fragment extends Fragment {
+    private static final String TAG = "Friend_Details_Fragment";
     private ImageView friendImage;
     private TextView friendName,friendCollegeName,friendBio,friendEnrolledCount,friendCompletedCount;
     private CardView viewFriendCertificates;
@@ -57,9 +59,10 @@ public class Friend_Details_Fragment extends Fragment {
                         User user = documentSnapshot.toObject(User.class);
                         friendName.setText(user.getUsername());
                         friendEnrolledCount.setText("Course Enrolled: " + user.getCourseEnrolled().size());
-                        friendCompletedCount.setText("Course Enrolled: "+ user.getCourseCompleted().size());
-                        friendBio.setText(user.getUserBio());
-                        friendCollegeName.setText(user.getUserCollege());
+                        friendCompletedCount.setText("Course Completed: "+ user.getCourseCompleted().size());
+                        Log.e(TAG, "" + user.getBio() + user.getCollege() );
+                        friendBio.setText(documentSnapshot.getString("bio"));
+                        friendCollegeName.setText(documentSnapshot.getString("college"));
                         Glide.with(getContext()).load(user.getProfileImage()).apply(RequestOptions.circleCropTransform())
                                 .into(friendImage);
                     }

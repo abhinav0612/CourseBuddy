@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,6 +52,7 @@ public class Fragment_Course extends Fragment {
     private String docId;
     private String course_name;
     private CardView enrolledCard;
+    private ConstraintLayout twoWayButton;
     private DocumentReference docReference;
     @Nullable
     @Override
@@ -73,6 +75,7 @@ public class Fragment_Course extends Fragment {
         enrolledCard = view.findViewById(R.id.cardViewEnrolled);
         courseEnrolledButton = view.findViewById(R.id.layoutEnrolledTextView);
         courseCompletedButton = view.findViewById(R.id.layoutCompletedTextView);
+        twoWayButton = view.findViewById(R.id.twoWayButton);
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
@@ -105,19 +108,38 @@ public class Fragment_Course extends Fragment {
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots){
                             ArrayList<DocumentReference> list = (ArrayList<DocumentReference>) snapshot.get("courseEnrolled");
-                            docReference = db.collection("Courses")
-                                    .document(docId);
-                            list.add(docReference);
-                            db.collection("Users")
-                                    .document(snapshot.getId())
-                                    .update("courseEnrolled",list)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Toast.makeText(getContext(),"Hurray! Course added as enrolled.",Toast.LENGTH_SHORT)
-                                                    .show();
-                                        }
-                                    });
+                            if (list != null){
+                                docReference = db.collection("Courses")
+                                        .document(docId);
+                                list.add(docReference);
+                                db.collection("Users")
+                                        .document(snapshot.getId())
+                                        .update("courseEnrolled",list)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(getContext(),"Hurray! Course added as enrolled.",Toast.LENGTH_SHORT)
+                                                        .show();
+                                            }
+                                        });
+                            }
+                            else{
+                                list = new ArrayList<>();
+                                docReference = db.collection("Courses")
+                                        .document(docId);
+                                list.add(docReference);
+                                db.collection("Users")
+                                        .document(snapshot.getId())
+                                        .update("courseEnrolled",list)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(getContext(),"Hurray! Course added as enrolled.",Toast.LENGTH_SHORT)
+                                                        .show();
+                                            }
+                                        });
+                            }
+
                         }
                     }
                 });
@@ -134,19 +156,39 @@ public class Fragment_Course extends Fragment {
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots){
                             ArrayList<DocumentReference> list = (ArrayList<DocumentReference>) snapshot.get("courseCompleted");
-                            docReference = db.collection("Courses")
-                                    .document(docId);
-                            list.add(docReference);
-                            db.collection("Users")
-                                    .document(snapshot.getId())
-                                    .update("courseCompleted",list)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Toast.makeText(getContext(),"Hurray! Course added as completed.",Toast.LENGTH_SHORT)
-                                                    .show();
-                                        }
-                                    });
+                            if (list != null){
+                                docReference = db.collection("Courses")
+                                        .document(docId);
+                                list.add(docReference);
+                                db.collection("Users")
+                                        .document(snapshot.getId())
+                                        .update("courseCompleted",list)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(getContext(),"Hurray! Course added as completed.",Toast.LENGTH_SHORT)
+                                                        .show();
+                                            }
+                                        });
+                            }
+                            else
+                            {
+                                list = new ArrayList<>();
+                                docReference = db.collection("Courses")
+                                        .document(docId);
+                                list.add(docReference);
+                                db.collection("Users")
+                                        .document(snapshot.getId())
+                                        .update("courseCompleted",list)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(getContext(),"Hurray! Course added as completed.",Toast.LENGTH_SHORT)
+                                                        .show();
+                                            }
+                                        });
+                            }
+
                         }
                     }
                 });
@@ -203,6 +245,7 @@ public class Fragment_Course extends Fragment {
                                                 ReviewRecyclerAdapter adapter = new ReviewRecyclerAdapter(reviews,getContext());
                                                 recyclerView.setAdapter(adapter);
                                                 adapter.notifyDataSetChanged();
+                                                twoWayButton.setVisibility(View.VISIBLE);
                                             }
                                         }
                                     });

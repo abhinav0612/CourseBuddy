@@ -11,13 +11,13 @@ public class User {
     private String Username,phoneNumber,UserUniqueId,email,bio,college,profileImage;
     private ArrayList<DocumentReference> courseCompleted,courseEnrolled;
 
-    public User(String username, String phoneNumber, String userUniqueId, String email, String userBio, String userCollege, ArrayList<DocumentReference> courseCompleted, ArrayList<DocumentReference> courseEnrolled,String profileImage) {
+    public User(String username, String phoneNumber, String userUniqueId, String email, String bio, String college, ArrayList<DocumentReference> courseCompleted, ArrayList<DocumentReference> courseEnrolled,String profileImage) {
         Username = username;
         this.phoneNumber = phoneNumber;
         UserUniqueId = userUniqueId;
         this.email = email;
-        this.bio = userBio;
-        this.college = userCollege;
+        this.bio = bio;
+        this.college = college;
         this.courseCompleted = courseCompleted;
         this.courseEnrolled = courseEnrolled;
         this.profileImage = profileImage;
@@ -31,20 +31,20 @@ public class User {
         this.profileImage = profileImage;
     }
 
-    public String getUserBio() {
+    public String getBio() {
         return bio;
     }
 
-    public void setUserBio(String userBio) {
-        this.bio = userBio;
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
-    public String getUserCollege() {
+    public String getCollege() {
         return college;
     }
 
-    public void setUserCollege(String userCollege) {
-        this.college = userCollege;
+    public void setCollege(String college) {
+        this.college = college;
     }
 
     public User() {
@@ -79,7 +79,7 @@ public class User {
     }
 
     public void setEmail(String email) {
-        email = email;
+        this.email = email;
     }
 
     public ArrayList<DocumentReference> getCourseCompleted() {

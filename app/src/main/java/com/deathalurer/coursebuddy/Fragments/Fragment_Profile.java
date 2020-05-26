@@ -105,8 +105,14 @@ public class Fragment_Profile extends Fragment {
                                         .into(userImage);
                                 ArrayList<DocumentReference> completedList = (ArrayList<DocumentReference>) document.get("courseCompleted");
                                 ArrayList<DocumentReference> enrolledList = (ArrayList<DocumentReference>) document.get("courseCompleted");
-                                enrolledCoursesCount.setText("Course Enrolled: "+ enrolledList.size()+"");
-                                completedCoursesCount.setText("Course Completed: "+ completedList.size() +"");
+                                if(enrolledList ==  null)
+                                    enrolledCoursesCount.setText("Course Enrolled: "+"0");
+                                else
+                                    enrolledCoursesCount.setText("Course Enrolled: "+ enrolledList.size()+"");
+                                if(completedList == null)
+                                    completedCoursesCount.setText("Course Completed: "+"0");
+                                else
+                                    completedCoursesCount.setText("Course Completed: "+ completedList.size() +"");
                                 enrolledCard.setVisibility(View.VISIBLE);
                                 completedCard.setVisibility(View.VISIBLE);
                             }

@@ -70,6 +70,7 @@ public class Fragment_Certificate extends Fragment {
     void getCertificates(){
         Bundle arguments = getArguments();
         if( arguments != null && getArguments().containsKey("UserId")){
+            fab.setVisibility(View.INVISIBLE);
             db.collection("Users")
                     .document(arguments.getString("UserId"))
                     .collection("Certificates")
@@ -91,6 +92,7 @@ public class Fragment_Certificate extends Fragment {
                     });
         }
         else{
+            fab.setVisibility(View.VISIBLE);
             db.collection("Users")
                     .whereEqualTo("UserUniqueID",user.getUid())
                     .get()

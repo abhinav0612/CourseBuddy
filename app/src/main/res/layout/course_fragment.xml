@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_height="match_parent"
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -7,7 +8,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <RelativeLayout
             android:layout_width="match_parent" android:layout_height="match_parent">
             <ImageView
                 android:layout_width="match_parent"
@@ -99,47 +100,58 @@
                 android:layout_below="@id/demoReview"
                 android:layout_margin="15dp"
                 android:id="@+id/reviewsRecyclerView"/>
-            <RelativeLayout
-                android:layout_width="250dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="220dp"
                 android:layout_below="@id/reviewsRecyclerView"
                 android:layout_marginTop="15dp"
+                android:id="@+id/twoWayButton"
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/background_card_layout"
                 android:padding="10dp"
                 android:layout_centerHorizontal="true"
-                android:layout_height="60dp">
+                android:layout_height="wrap_content">
+
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:text="Enrolled"
-                    android:gravity="center_horizontal"
-                    android:textSize="18dp"
-                   android:textStyle="bold"
-                    android:textColor="#fff"
-                    android:layout_marginTop="5dp"
                     android:id="@+id/layoutEnrolledTextView"
-                    android:layout_marginRight="15dp"
-                    android:layout_toLeftOf="@id/layoutDemoView"
-                    android:layout_height="30dp"/>
-                <View
-                    android:layout_width="1dp"
-                    android:id="@+id/layoutDemoView"
-                    android:background="#7A1D8A"
-                    android:layout_centerInParent="true"
-                    android:layout_height="40dp"/>
-                <TextView
                     android:layout_width="wrap_content"
-                    android:text="Completed"
-                    android:layout_marginLeft="15dp"
-                    android:gravity="center_vertical"
-                    android:textSize="18dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_toLeftOf="@id/layoutDemoView"
+                    android:text="Enrolled"
                     android:textColor="#fff"
+                    android:textSize="18dp"
                     android:textStyle="bold"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_toRightOf="@id/layoutDemoView"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/layoutDemoView"
+                    android:layout_width="1dp"
+                    android:layout_height="30dp"
+                    android:layout_centerInParent="true"
+                    android:background="#E1B940"
+                    app:layout_constraintEnd_toStartOf="@id/layoutCompletedTextView"
+                    app:layout_constraintStart_toEndOf="@id/layoutEnrolledTextView"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.333"
+                    tools:layout_editor_absoluteX="93dp" />
+
+                <TextView
                     android:id="@+id/layoutCompletedTextView"
-                    android:layout_height="wrap_content"/>
-            </RelativeLayout>
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="4dp"
+                    android:text="Completed"
+                    android:textColor="#fff"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.2" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </RelativeLayout>
     </ScrollView>
 </LinearLayout>

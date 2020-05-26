@@ -58,7 +58,7 @@
                 android:layout_marginTop="78dp"
                 android:layout_marginLeft="30dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_account_circle_black_24dp"/>
+                android:src="@drawable/ic_email_black_24dp"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_marginTop="20dp"
@@ -75,7 +75,7 @@
                 android:layout_marginTop="138dp"
                 android:layout_marginLeft="30dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_account_circle_black_24dp"/>
+                android:src="@drawable/ic_call_black_24dp"/>
 
 
             <EditText
@@ -86,7 +86,7 @@
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
                 android:layout_below="@id/signupPhone"
-                android:hint="Password"
+                android:hint="College"
                 android:id="@+id/signUpCollege"/>
             <ImageView
                 android:layout_width="wrap_content"
@@ -94,7 +94,7 @@
                 android:layout_marginTop="198dp"
                 android:layout_marginLeft="30dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_account_circle_black_24dp"/>
+                android:src="@drawable/ic_school_black_24dp"/>
 
 
             <EditText
@@ -113,7 +113,7 @@
                 android:layout_marginTop="258dp"
                 android:layout_marginLeft="30dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_account_circle_black_24dp"/>
+                android:src="@drawable/ic_lock_black_24dp"/>
 
             <Button
                 android:layout_width="wrap_content"
@@ -121,6 +121,7 @@
                 android:text="Sign Up"
                 android:layout_below="@id/signUpPassword"
                 android:layout_marginTop="15dp"
+                android:background="@drawable/button_back"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/signUpButton"/>
             <TextView
@@ -149,6 +150,8 @@
                 android:layout_below="@id/goToSignIn"
                     android:layout_marginBottom="10dp"
                 android:layout_marginTop="20dp"
+                android:padding="10dp"
+                android:background="@drawable/custom_button"
                 android:layout_centerHorizontal="true"/>
         </RelativeLayout>
 

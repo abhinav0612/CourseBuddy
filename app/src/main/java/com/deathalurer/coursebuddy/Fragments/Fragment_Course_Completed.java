@@ -62,6 +62,8 @@ public class Fragment_Course_Completed extends Fragment {
                         if(queryDocumentSnapshots!=null){
                             for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots){
                                 ArrayList<DocumentReference> list = (ArrayList<DocumentReference>) snapshot.get("courseCompleted");
+                                if (list == null)
+                                    return;
                                 courseList = new ArrayList<>();
                                 for (DocumentReference documentReference : list){
                                     db.collection("Courses")

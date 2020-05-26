@@ -20,7 +20,7 @@
             android:layout_marginLeft="5dp"
             android:layout_centerInParent="true"
             android:layout_marginRight="10dp"
-            android:text="Want to see who in your college is enrolled."
+            android:text="Tap here to see who in your college is enrolled."
             android:layout_height="wrap_content"/>
     </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView

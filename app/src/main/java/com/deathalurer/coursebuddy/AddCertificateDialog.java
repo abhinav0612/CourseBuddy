@@ -90,7 +90,7 @@ public class AddCertificateDialog extends AppCompatDialogFragment {
                                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                 @Override
                                                 public void onSuccess(DocumentReference documentReference) {
-                                                    Toast.makeText(getContext(),"Certificated Added.",Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(getActivity(),"Certificated Added.",Toast.LENGTH_SHORT).show();
                                                 }
                                             });
                                     dismiss();
